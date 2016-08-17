@@ -1,0 +1,46 @@
+{
+  "name": "select-section",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azu/text-testing.git"
+  },
+  "author": "azu",
+  "email": "azuciao@gmail.com",
+  "homepage": "https://github.com/azu/text-testing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azu/text-testing/issues"
+  },
+  "files": [
+    "src/",
+    "lib/"
+  ],
+  "version": "1.0.0",
+  "description": "Cut out sections from TxtAST.",
+  "main": "lib/select-section.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/",
+    "build": "NODE_ENV=production babel src --out-dir lib --source-maps",
+    "watch": "babel src --out-dir lib --watch --source-maps",
+    "prepublish": "npm run --if-present build"
+  },
+  "keywords": [
+    "text"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-jsdoc-to-assert": "^3.0.1",
+    "babel-preset-power-assert": "^1.0.0",
+    "babel-register": "^6.11.6",
+    "mocha": "^3.0.2",
+    "power-assert": "^1.4.1",
+    "remark": "^5.1.0"
+  },
+  "dependencies": {
+    "txt-ast-traverse": "^1.2.1"
+  }
+}
