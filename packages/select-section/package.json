@@ -15,7 +15,7 @@
     "src/",
     "lib/"
   ],
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Cut out sections from TxtAST.",
   "main": "lib/select-section.js",
   "directories": {

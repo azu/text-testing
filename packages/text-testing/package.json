@@ -15,7 +15,7 @@
     "src/",
     "lib/"
   ],
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "testing library for natural language",
   "main": "lib/index.js",
   "directories": {
@@ -33,7 +33,7 @@
   ],
   "dependencies": {
     "markdown-to-ast": "^3.4.0",
-    "select-section": "^1.0.0"
+    "select-section": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
