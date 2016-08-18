@@ -9,7 +9,7 @@
   "homepage": "https://github.com/azu/text-testing-mocha",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/azu/text-testing-mocha/issues"
+    "url": "https://github.com/azu/text-testing/issues"
   },
   "files": [
     "src/",

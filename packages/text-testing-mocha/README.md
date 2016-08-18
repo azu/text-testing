@@ -11,7 +11,7 @@ Install with [npm](https://www.npmjs.com/):
 ## Usage
 
 ```js
-const tester = require("../src/text-testing-mocha");
+const tester = require("text-testing-mocha");
 
 tester(content, (section) => {
     section("text", (test) => {
@@ -24,7 +24,7 @@ tester(content, (section) => {
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/text-testing-mocha/releases).
+See [Releases page](https://github.com/azu/text-testing/releases).
 
 ## Running tests
 
@@ -36,7 +36,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/text-testing-mocha/issues).
+For bugs and feature requests, [please create an issue](https://github.com/azu/text-testing/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
