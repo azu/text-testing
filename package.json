@@ -6,6 +6,6 @@
   "devDependencies": {
     "lerna": "2.0.0-beta.24",
     "mocha": "^3.0.2",
-    "text-testing-mocha": "^1.0.0"
+    "text-testing-mocha": "^0.x.x"
   }
 }
