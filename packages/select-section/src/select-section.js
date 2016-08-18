@@ -18,6 +18,28 @@ class Section {
     toArray() {
         return this.nodes.slice();
     }
+
+    toSectionNode() {
+        const nodes = this.toArray();
+        const firstNode = nodes[0];
+        const lastNode = nodes[nodes.length - 1];
+        if (!firstNode || !lastNode) {
+            return {
+                type: "Section",
+                children: []
+            }
+        }
+        return {
+            type: "Section",
+            range: [firstNode.range[0], lastNode.range[1]],
+            loc: {
+                start: firstNode.loc.start,
+                end: lastNode.loc.end
+            },
+            raw: nodes.map(node => node.raw).join(""),
+            children: nodes
+        };
+    }
 }
 /**
  * create `sections` from `txtAST`
@@ -28,9 +50,9 @@ module.exports = function(txtAST) {
     let level = 0;
     let currentSection = new Section(NaN);
     const sections = [];
-    const headerType = /heading/i;
+    const headerType = /Header/i;
     // remark and txtast
-    const rootType = /(root|document)/i;
+    const rootType = /Document/i;
 
     traverse(txtAST, {
         enter(node) {
@@ -52,5 +74,5 @@ module.exports = function(txtAST) {
             }
         }
     });
-    return sections.map(section => section.toArray());
+    return sections.map(section => section.toSectionNode());
 };

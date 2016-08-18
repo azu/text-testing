@@ -10,8 +10,12 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Usage
 
+
+Create "Section" node that compatible with [TxtAST](https://github.com/textlint/textlint/blob/master/docs/txtnode.md "TxtAST").
+
 ```js
-const AST = remark.parse(`# Header
+const parse = require("markdown-to-ast").parse;
+const AST = parse(`# Header
 text1
 text1
 
@@ -22,160 +26,204 @@ text2`);
 const results = createSections(AST);
 /*
 [
-    [
-        {
-            "type": "heading",
-            "depth": 1,
-            "children": [
-                {
-                    "type": "text",
-                    "value": "Header",
-                    "position": {
-                        "start": {
-                            "line": 1,
-                            "column": 3,
-                            "offset": 2
-                        },
-                        "end": {
-                            "line": 1,
-                            "column": 9,
-                            "offset": 8
-                        },
-                        "indent": []
-                    }
-                }
-            ],
-            "position": {
-                "start": {
-                    "line": 1,
-                    "column": 1,
-                    "offset": 0
-                },
-                "end": {
-                    "line": 1,
-                    "column": 9,
-                    "offset": 8
-                },
-                "indent": []
+    {
+        "type": "Section",
+        "range": [
+            0,
+            20
+        ],
+        "loc": {
+            "start": {
+                "line": 1,
+                "column": 0
+            },
+            "end": {
+                "line": 3,
+                "column": 5
             }
         },
-        {
-            "type": "paragraph",
-            "children": [
-                {
-                    "type": "text",
-                    "value": "text1\ntext1",
-                    "position": {
-                        "start": {
-                            "line": 2,
-                            "column": 1,
-                            "offset": 9
+        "raw": "# Headertext1\ntext1",
+        "children": [
+            {
+                "type": "Header",
+                "depth": 1,
+                "children": [
+                    {
+                        "type": "Str",
+                        "value": "Header",
+                        "loc": {
+                            "start": {
+                                "line": 1,
+                                "column": 2
+                            },
+                            "end": {
+                                "line": 1,
+                                "column": 8
+                            }
                         },
-                        "end": {
-                            "line": 3,
-                            "column": 6,
-                            "offset": 20
-                        },
-                        "indent": [
-                            1
-                        ]
+                        "range": [
+                            2,
+                            8
+                        ],
+                        "raw": "Header"
                     }
-                }
-            ],
-            "position": {
-                "start": {
-                    "line": 2,
-                    "column": 1,
-                    "offset": 9
+                ],
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 1,
+                        "column": 8
+                    }
                 },
-                "end": {
-                    "line": 3,
-                    "column": 6,
-                    "offset": 20
+                "range": [
+                    0,
+                    8
+                ],
+                "raw": "# Header"
+            },
+            {
+                "type": "Paragraph",
+                "children": [
+                    {
+                        "type": "Str",
+                        "value": "text1\ntext1",
+                        "loc": {
+                            "start": {
+                                "line": 2,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 3,
+                                "column": 5
+                            }
+                        },
+                        "range": [
+                            9,
+                            20
+                        ],
+                        "raw": "text1\ntext1"
+                    }
+                ],
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 3,
+                        "column": 5
+                    }
                 },
-                "indent": [
-                    1
-                ]
+                "range": [
+                    9,
+                    20
+                ],
+                "raw": "text1\ntext1"
             }
-        }
-    ],
-    [
-        {
-            "type": "heading",
-            "depth": 1,
-            "children": [
-                {
-                    "type": "text",
-                    "value": "Header",
-                    "position": {
-                        "start": {
-                            "line": 5,
-                            "column": 3,
-                            "offset": 24
-                        },
-                        "end": {
-                            "line": 5,
-                            "column": 9,
-                            "offset": 30
-                        },
-                        "indent": []
-                    }
-                }
-            ],
-            "position": {
-                "start": {
-                    "line": 5,
-                    "column": 1,
-                    "offset": 22
-                },
-                "end": {
-                    "line": 5,
-                    "column": 9,
-                    "offset": 30
-                },
-                "indent": []
+        ]
+    },
+    {
+        "type": "Section",
+        "range": [
+            22,
+            43
+        ],
+        "loc": {
+            "start": {
+                "line": 5,
+                "column": 0
+            },
+            "end": {
+                "line": 8,
+                "column": 5
             }
         },
-        {
-            "type": "paragraph",
-            "children": [
-                {
-                    "type": "text",
-                    "value": "text2\ntext2",
-                    "position": {
-                        "start": {
-                            "line": 7,
-                            "column": 1,
-                            "offset": 32
+        "raw": "# Headertext2\ntext2",
+        "children": [
+            {
+                "type": "Header",
+                "depth": 1,
+                "children": [
+                    {
+                        "type": "Str",
+                        "value": "Header",
+                        "loc": {
+                            "start": {
+                                "line": 5,
+                                "column": 2
+                            },
+                            "end": {
+                                "line": 5,
+                                "column": 8
+                            }
                         },
-                        "end": {
-                            "line": 8,
-                            "column": 6,
-                            "offset": 43
-                        },
-                        "indent": [
-                            1
-                        ]
+                        "range": [
+                            24,
+                            30
+                        ],
+                        "raw": "Header"
                     }
-                }
-            ],
-            "position": {
-                "start": {
-                    "line": 7,
-                    "column": 1,
-                    "offset": 32
+                ],
+                "loc": {
+                    "start": {
+                        "line": 5,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 5,
+                        "column": 8
+                    }
                 },
-                "end": {
-                    "line": 8,
-                    "column": 6,
-                    "offset": 43
+                "range": [
+                    22,
+                    30
+                ],
+                "raw": "# Header"
+            },
+            {
+                "type": "Paragraph",
+                "children": [
+                    {
+                        "type": "Str",
+                        "value": "text2\ntext2",
+                        "loc": {
+                            "start": {
+                                "line": 7,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 8,
+                                "column": 5
+                            }
+                        },
+                        "range": [
+                            32,
+                            43
+                        ],
+                        "raw": "text2\ntext2"
+                    }
+                ],
+                "loc": {
+                    "start": {
+                        "line": 7,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 8,
+                        "column": 5
+                    }
                 },
-                "indent": [
-                    1
-                ]
+                "range": [
+                    32,
+                    43
+                ],
+                "raw": "text2\ntext2"
             }
-        }
-    ]
+        ]
+    }
 ]
 */
 ```
