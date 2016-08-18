@@ -34,10 +34,10 @@ tester(content, (section) => {
 tester(content, (section) => {
     section("Header", (it, sections) => {
         assert(Array.isArray(sections));
-        it("unknown", (text, section) => {
+        it("unknown", (texts, section) => {
             assert(section instanceof SectionTesting);
-            assert(typeof text === "string");
-            return !section.contains(text);
+            assert(Array.isArray(texts));
+            return texts.every(text => !section.contains(text));
         });
     });
 });

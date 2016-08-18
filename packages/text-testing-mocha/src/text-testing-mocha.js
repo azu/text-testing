@@ -1,5 +1,6 @@
 // LICENSE : MIT
 "use strict";
+const matchAll = require("match-all");
 const TextTesting = require("text-testing").TextTesting;
 const textTesting = new TextTesting();
 const describe = (typeof global.describe === "function") ? global.describe : function(text, method) {
@@ -24,12 +25,12 @@ module.exports = function tester(content, loadCallback) {
                  */
                 /**
                  * predicate function
-                 * @param {string} text
+                 * @param {string[]} texts
                  * @param {SectionTesting} section
                  * @returns {boolean}
                  */
-                const defaultPredicate = (text, section) => {
-                    return section.contains(text);
+                const defaultPredicate = (texts, section) => {
+                    return texts.every(text => section.contains(text));
                 };
                 const test = (text, predicate = defaultPredicate) => {
                     testText(trimmedSectionName, text, predicate);
@@ -39,20 +40,22 @@ module.exports = function tester(content, loadCallback) {
             });
         };
         const testText = (sectionName, text, predicate) => {
-            const matches = text.match(/\*\*(.*?)\*\*/);
-            const matchText = matches ? matches[1] : text;
+            const match = matchAll(text, /\*\*(.*?)\*\*/g);
+            const matchTexts = match.toArray().length !== 0
+                ? match.toArray()
+                : [text];
             it(text, () => {
                 let isContained = false;
                 document.forEachSection(sectionName, (section) => {
                     if (isContained) {
                         return;
                     }
-                    if (predicate(matchText, section)) {
+                    if (predicate(matchTexts, section)) {
                         isContained = true;
                     }
                 });
                 if (!isContained) {
-                    throw new Error(`"${matchText}" is not contained.`);
+                    throw new Error(`"${text}" is not contained.`);
                 }
             });
         };
