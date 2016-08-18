@@ -31,6 +31,12 @@ tester(content, (section) => {
         it("Header");
     });
 });
+// and
+tester(content, (section) => {
+    section("header", (it) => {
+        it("**Body** is **content**");
+    });
+});
 tester(content, (section) => {
     section("Header", (it, sections) => {
         assert(Array.isArray(sections));
