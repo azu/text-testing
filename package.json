@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "prepublish": "npm run bootstrap",
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test && mocha"
   },
