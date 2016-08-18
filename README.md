@@ -1,4 +1,4 @@
-# text-testing monorepo
+# text-testing monorepo [![Build Status](https://travis-ci.org/azu/text-testing.svg?branch=master)](https://travis-ci.org/azu/text-testing)
 
 text-testing monorepo.
 
