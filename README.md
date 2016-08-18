@@ -29,7 +29,7 @@ Run the test via [Mocha](http://mochajs.org/ "Mocha").
 $ mocha readme-test.js
 
   What is this?
-    ✓ It is
+    ✓ testing library
 ```
 
 ## Packages
