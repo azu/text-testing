@@ -3,7 +3,6 @@
 const matchAll = require("match-all");
 const TextTesting = require("text-testing").TextTesting;
 const textTesting = new TextTesting();
-import requireMocha from "./require-mocha"
 const describe = (typeof global.describe === "function") ? global.describe : function(text, method) {
     return method.apply(this);
 };
@@ -12,7 +11,6 @@ const it = (typeof global.it === "function") ? global.it : function(text, method
 };
 
 module.exports = function tester(content, loadCallback) {
-    requireMocha();
     textTesting.load(content, (document) => {
         const sectionTest = (sectionName, sectionCallback) => {
             const matches = sectionName.match(/\*\*(.*?)\*\*/);
