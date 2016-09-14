@@ -33,7 +33,7 @@ tester(content, (section) => {
 });
 // and
 tester(content, (section) => {
-    section("header", (it) => {
+    section("Header", (it) => {
         it("**Body** is **content**");
     });
 });
