@@ -2,6 +2,83 @@
 
 Cut out sections from TxtAST.
 
+## Section?
+
+A **section** is slitted by Header Node.
+
+This rule defined **section** as following:
+
+The Markdown contents 
+```
+# Header1
+
+text.
+
+# Header2
+
+text.
+
+```
+
+to be
+
+```
+------------|---- # Header 1
+            | 
+Section1    |     text.
+            |
+------------|---- # Header 2
+            |
+Section2    |     text.
+            |
+------------|---------------
+```
+
+### Same Level header
+
+
+
+A **section** is slitted by Header Node.
+
+This rule defined **section** as following:
+
+The Markdown contents 
+```
+# Header1
+
+text.
+
+## Header2
+
+text.
+
+```
+
+to be
+
+```
+--------------------------|---- # Header 1
+                          | 
+  Section1                |     text.
+                          |
+            --------------|---- ## Header 2
+            -            -|
+            -  Section2  -|     text.
+            -            -|
+--------------------------|---------------
+```
+
+Tree view:
+
+```
+└── _Section1_
+    ├── # Header 1
+    ├── text.
+    └── _Section2_
+        ├── ## Header 2
+        └── text.
+```
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):

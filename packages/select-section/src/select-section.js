@@ -1,14 +1,15 @@
 // LICENSE : MIT
 "use strict";
 const traverse = require("txt-ast-traverse").traverse;
+const Map = require("map-like");
 class Section {
     constructor(level) {
-        this._sectionLevel = level;
+        this.level = level;
         this.nodes = [];
     }
 
     isSameLevel(level) {
-        return level === this._sectionLevel;
+        return level === this.level;
     }
 
     add(node) {
@@ -41,15 +42,65 @@ class Section {
         };
     }
 }
+class Sections {
+    constructor() {
+        this.sectionMap = new Map();
+    }
+
+    getAllSections() {
+        return this.sectionMap.values();
+    }
+
+    getSection(depth) {
+        return this.sectionMap.get(depth);
+    }
+
+    /**
+     * @param {number} depth
+     * @returns {boolean}
+     */
+    hasSection(depth) {
+        return this.sectionMap.has(depth)
+    }
+
+    /**
+     * @param {Section} section
+     */
+    addSection(section) {
+        this.sectionMap.set(section.level, section);
+    }
+
+    /**
+     * @param {Object} node
+     */
+    addNodeToAllSections(node) {
+        this.sectionMap.forEach(section => {
+            section.add(node);
+        });
+    }
+
+    /**
+     * @param {number} depth
+     * @returns {V}
+     */
+    popSection(depth) {
+        const section = this.sectionMap.get(depth);
+        this.sectionMap.delete(depth);
+        return section;
+    }
+}
 /**
  * create `sections` from `txtAST`
  * @param {Object} txtAST
  * @returns {Array[]} sections - the section is array of the section nodes
  */
 module.exports = function(txtAST) {
-    let level = 0;
-    let currentSection = new Section(NaN);
-    const sections = [];
+    let traversingLevel = 0;
+    let previousHeaderLevel = NaN;
+    const sections = new Sections();
+    const rootSection = new Section(0);
+    sections.addSection(rootSection);
+    const resultSections = [rootSection];
     const headerType = /Header/i;
     // remark and txtast
     const rootType = /Document/i;
@@ -57,22 +108,32 @@ module.exports = function(txtAST) {
     traverse(txtAST, {
         enter(node) {
             if (headerType.test(node.type)) {
-                currentSection = new Section(level);
-                currentSection.add(node);
-                sections.push(currentSection);
-            } else if (currentSection.isSameLevel(level)) {
-                currentSection.add(node);
+                if (!sections.hasSection(node.depth)) {
+                    const newSection = new Section(node.depth);
+                    sections.addSection(newSection);
+                } else {
+                    const prevSection = sections.popSection(node.depth);
+                    resultSections.push(prevSection);
+                    const newSection = new Section(node.depth);
+                    sections.addSection(newSection);
+                }
+                previousHeaderLevel = traversingLevel;
             }
-            level++;
+            if (traversingLevel === previousHeaderLevel) {
+                sections.addNodeToAllSections(node);
+            }
+            traversingLevel++;
         },
         leave(node) {
-            level--;
+            traversingLevel--;
             if (rootType.test(node.type)) {
-                if (sections.indexOf(currentSection) === -1) {
-                    sections.push(currentSection);
-                }
+                sections.getAllSections().forEach(section => {
+                    if (resultSections.indexOf(section) === -1) {
+                        resultSections.push(section);
+                    }
+                });
             }
         }
     });
-    return sections.map(section => section.toSectionNode());
+    return resultSections.map(section => section.toSectionNode());
 };

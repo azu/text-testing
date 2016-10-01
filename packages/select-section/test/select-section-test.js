@@ -27,16 +27,75 @@ text1
 text2
 text2`);
             const results = createSections(AST);
-            assert.equal(results.length, 2);
-            const [section1, section2] = results;
+            assert.equal(results.length, 3);
+            const [rootSection, section1, section2] = results;
+            assert(rootSection.type === "Section");
             assert(section1.type === "Section");
             assert(section2.type === "Section");
-            assert(section1.children.length === 2);
-            assert(section2.children.length === 2);
-            assert(section1.children[0].type === "Header");
-            assert(section1.children[1].type === "Paragraph");
-            assert(section2.children[0].type === "Header");
-            assert(section2.children[1].type === "Paragraph");
+            const rootTypes = rootSection.children.map(child => {
+                return child.type;
+            });
+            const section1Types = section1.children.map(child => {
+                return child.type;
+            });
+            const section2Types = section2.children.map(child => {
+                return child.type;
+            });
+            assert.deepEqual(rootTypes, [
+                "Header",
+                "Paragraph",
+                "Header",
+                "Paragraph"
+            ]);
+            assert.deepEqual(section1Types, [
+                "Header",
+                "Paragraph"
+            ]);
+            assert.deepEqual(section2Types, [
+                "Header",
+                "Paragraph"
+            ]);
+        });
+    });
+
+    context("when exist difference level header", function() {
+        it("should return return array that has two sections", function() {
+            const AST = parse(`# Header Lv1
+text.
+## Header Lv2
+
+text.`);
+            const results = createSections(AST);
+            assert.equal(results.length, 3);
+            const [rootSection, section1, section2] = results;
+            assert(rootSection.type === "Section");
+            assert(section1.type === "Section");
+            assert(section2.type === "Section");
+            const rootTypes = rootSection.children.map(child => {
+                return child.type;
+            });
+            const section1Types = section1.children.map(child => {
+                return child.type;
+            });
+            const section2Types = section2.children.map(child => {
+                return child.type;
+            });
+            assert.deepEqual(rootTypes, [
+                "Header",
+                "Paragraph",
+                "Header",
+                "Paragraph"
+            ]);
+            assert.deepEqual(section1Types, [
+                "Header",
+                "Paragraph",
+                "Header",
+                "Paragraph"
+            ]);
+            assert.deepEqual(section2Types, [
+                "Header",
+                "Paragraph"
+            ]);
         });
     })
 });
