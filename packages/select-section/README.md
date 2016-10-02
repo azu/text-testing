@@ -91,6 +91,7 @@ Install with [npm](https://www.npmjs.com/):
 Create "Section" node that compatible with [TxtAST](https://github.com/textlint/textlint/blob/master/docs/txtnode.md "TxtAST").
 
 ```js
+const createSections = require("select-section");
 const parse = require("markdown-to-ast").parse;
 const AST = parse(`# Header
 text1
@@ -304,6 +305,10 @@ const results = createSections(AST);
 ]
 */
 ```
+
+## Example
+
+- Use in textlint: [azu/textlint-rule-no-empty-section: textlint rule not allow to create empty section.](https://github.com/azu/textlint-rule-no-empty-section "azu/textlint-rule-no-empty-section: textlint rule not allow to create empty section.")
 
 ## Changelog
 
