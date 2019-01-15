@@ -2,6 +2,7 @@
 "use strict";
 const traverse = require("txt-ast-traverse").traverse;
 const Map = require("map-like");
+
 class Section {
     constructor(level) {
         this.level = level;
@@ -32,7 +33,9 @@ class Section {
         }
         return {
             type: "Section",
-            range: [firstNode.range[0], lastNode.range[1]],
+            range: firstNode.position
+                   ? [firstNode.position.start.offset, lastNode.end.offset]
+                   : [firstNode.range[0], lastNode.range[1]],
             loc: {
                 start: firstNode.loc.start,
                 end: lastNode.loc.end
@@ -42,6 +45,7 @@ class Section {
         };
     }
 }
+
 class Sections {
     constructor() {
         this.sectionMap = new Map();
@@ -89,6 +93,7 @@ class Sections {
         return section;
     }
 }
+
 /**
  * create `sections` from `txtAST`
  * @param {Object} txtAST
