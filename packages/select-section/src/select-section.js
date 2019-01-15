@@ -111,9 +111,9 @@ module.exports = function(txtAST) {
     sections.addSection(rootSection);
     const resultSections = [rootSection];
     // support txt-ast and mdast
-    const headerType = /(Header|Root)/i;
+    const headerType = /Header/i;
     // remark and txtast
-    const rootType = /Document/i;
+    const rootType = /(Document|Root)/i;
 
     traverse(txtAST, {
         enter(node) {
