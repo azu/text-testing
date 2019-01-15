@@ -1,6 +1,6 @@
 # select-section
 
-Cut out sections from TxtAST.
+Cut out sections from TxtAST or [mdast](https://github.com/syntax-tree/mdast).
 
 ## Section?
 

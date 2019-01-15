@@ -81,7 +81,7 @@ class Sections {
 
     /**
      * @param {number} depth
-     * @returns {V}
+     * @returns {*}
      */
     popSection(depth) {
         const section = this.sectionMap.get(depth);
@@ -101,7 +101,8 @@ module.exports = function(txtAST) {
     const rootSection = new Section(0);
     sections.addSection(rootSection);
     const resultSections = [rootSection];
-    const headerType = /Header/i;
+    // support txt-ast and mdast
+    const headerType = /(Header|Root)/i;
     // remark and txtast
     const rootType = /Document/i;
 
