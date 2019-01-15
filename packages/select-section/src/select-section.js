@@ -34,7 +34,7 @@ class Section {
         return {
             type: "Section",
             range: firstNode.position
-                   ? [firstNode.position.start.offset, lastNode.end.offset]
+                   ? [firstNode.position.start.offset, lastNode.position.end.offset]
                    : [firstNode.range[0], lastNode.range[1]],
             loc: {
                 start: firstNode.loc.start,
