@@ -37,8 +37,12 @@ class Section {
                    ? [firstNode.position.start.offset, lastNode.position.end.offset]
                    : [firstNode.range[0], lastNode.range[1]],
             loc: {
-                start: firstNode.loc.start,
-                end: lastNode.loc.end
+                start: firstNode.position
+                       ? firstNode.position.start.offset
+                       : firstNode.loc.start,
+                end: lastNode.position
+                     ? lastNode.position.end.offset
+                     : lastNode.loc.end
             },
             raw: nodes.map(node => node.raw).join(""),
             children: nodes
